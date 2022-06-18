@@ -1,34 +1,44 @@
 package com.venikkin.example.golftmts.provider
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Service
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
-import javax.annotation.PostConstruct
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.bind.support.WebDataBinderFactory
-import java.net.URL
+import javax.annotation.Resource
 
 @Service
 class ProviderPayloadConverterResolver : HandlerMethodArgumentResolver {
 
-    @Value("\${providers-source}")
-    private val providerSource: URL? = null
-
-    @PostConstruct
-    fun loadProvidersData() {
-        // tbd
+    companion object {
+        const val PROVIDER_HEADER = "Provider-Token"
     }
 
+    @Resource
+    private lateinit var providers: Providers
+
+    private lateinit var converters: Map<String, ProviderPayloadConverter>
+
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.hasParameterAnnotation<Provider>(Provider::class.java)
+        return parameter.hasParameterAnnotation(Provider::class.java)
     }
 
     override fun resolveArgument(parameter: MethodParameter,
-                                 mavContainer: ModelAndViewContainer,
+                                 mavContainer: ModelAndViewContainer?,
                                  webRequest: NativeWebRequest,
-                                 binderFactory: WebDataBinderFactory): Any {
-        return ""
+                                 binderFactory: WebDataBinderFactory?): Any {
+        val providerToken = webRequest.getHeader(PROVIDER_HEADER)
+        if (providerToken == null || providerToken.isBlank()) {
+            throw java.lang.IllegalArgumentException() // todo specific exception
+        }
+        val provider = providers.getProviderSettingsByToken(providerToken)
+                ?: throw java.lang.IllegalArgumentException() // todo specific exception
+
+        val converter = converters.get(provider.payloadConverter)
+                ?: throw java.lang.IllegalArgumentException() // todo specific exception
+
+        return converter
     }
+
 }

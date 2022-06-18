@@ -1,0 +1,14 @@
+{
+  "providers": [
+    {
+      "alias": "Source1",
+      "token": "999d71a7-b91d-49f6-8f16-c036fccbb69d",
+      "converter": ""
+    },
+    {
+      "alias": "Source2",
+      "token": "5a19733c-fdfb-4a3a-a792-bf406f135e88",
+      "converter": ""
+    }
+  ]
+}
