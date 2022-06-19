@@ -2,9 +2,10 @@ package com.venikkin.example.golftmts
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.SpringApplication
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
-open class Bootstrap {
+class Bootstrap {
 
     companion object {
 

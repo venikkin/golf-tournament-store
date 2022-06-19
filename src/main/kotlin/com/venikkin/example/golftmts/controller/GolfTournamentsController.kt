@@ -7,7 +7,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus.OK
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -31,12 +30,6 @@ class GolfTournamentsController @Autowired constructor(
         val tournament = payloadConverter.convert(payload)
         log.info("Received {}", tournament)
         tournamentService.saveTournament(tournament)
-    }
-
-    @GetMapping
-    @ResponseStatus(OK)
-    fun ping(): String {
-        return "{\"hello\": \"world\"}"
     }
 
 }

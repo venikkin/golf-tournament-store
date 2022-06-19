@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service
 class CountryCodeConverter {
 
     fun convertToCountryCode(country: String): String {
+        if ("United States Of America" == country) {
+            return "US"
+        }
         return country
     }
 

@@ -1,6 +1,7 @@
 package com.venikkin.example.golftmts.provider.source1
 
 import com.google.gson.Gson
+import com.venikkin.example.golftmts.configuration.BadRequestException
 import com.venikkin.example.golftmts.model.Tournament
 import com.venikkin.example.golftmts.provider.ProviderPayloadConverter
 import org.springframework.stereotype.Service
@@ -13,12 +14,13 @@ class Source1PayloadConverter: ProviderPayloadConverter {
     companion object {
         private const val PROVIDER_NAME = "Source1"
         private val GSON: Gson = Gson()
-        private val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/YY");
+        private val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
     }
 
     override fun convert(payload: String): Tournament {
-        val source1Payload = GSON.fromJson(payload, Source1Payload::class.java)
-        return Tournament(
+        val source1Payload = GSON.fromJson(payload, Source1Payload::class.java) ?: throw BadRequestException("Fail to deserialise payload")
+        return try {
+            Tournament(
                 name = source1Payload.tournamentName,
                 courseName = source1Payload.courseName,
                 // this field potentially need to normalised as internal country code may not match external representation
@@ -29,7 +31,10 @@ class Source1PayloadConverter: ProviderPayloadConverter {
                 rounds = Integer.parseInt(source1Payload.roundCount),
                 externalId = source1Payload.tournamentId,
                 provider = PROVIDER_NAME
-        )
+            )
+        } catch (ex: Exception) {
+            throw BadRequestException("Fail to deserialise payload", ex)
+        }
     }
 
     data class Source1Payload(
