@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication
 open class Bootstrap {
 
     companion object {
+
         @JvmStatic
         fun main(args: Array<String>) {
             SpringApplication.run(Bootstrap::class.java, *args)
