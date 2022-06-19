@@ -12,7 +12,9 @@ import java.net.http.HttpResponse
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = [
-            "providers.source=file:conf/providers.example.json"
+            "providers.source=file:conf/providers.example.json",
+            "spring.datasource.url=jdbc:mysql://localhost:23306/golf",
+            "spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"
         ]
 )
 class GolfTournamentsControllerIT {

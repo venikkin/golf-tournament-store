@@ -23,6 +23,10 @@ class Providers {
         settings = providerSource.openStream().use { stream ->
             Gson().fromJson(InputStreamReader(stream), ProvidersSettings::class.java)
         }
+        if (settings.providers.isEmpty()) {
+            throw IllegalStateException("Provider list is empty")
+        }
+        println(settings)
     }
 
     fun getProviderSettingsByToken(token: String): ProviderSettings? =

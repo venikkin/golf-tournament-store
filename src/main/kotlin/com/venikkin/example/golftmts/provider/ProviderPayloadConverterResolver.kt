@@ -1,24 +1,23 @@
 package com.venikkin.example.golftmts.provider
 
+import com.venikkin.example.golftmts.configuration.BadRequestException
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Service
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.bind.support.WebDataBinderFactory
-import javax.annotation.Resource
 
 @Service
-class ProviderPayloadConverterResolver : HandlerMethodArgumentResolver {
+class ProviderPayloadConverterResolver @Autowired constructor(
+        private val providers: Providers,
+        private val converters: Map<String, ProviderPayloadConverter>
+) : HandlerMethodArgumentResolver {
 
     companion object {
         const val PROVIDER_HEADER = "Provider-Token"
     }
-
-    @Resource
-    private lateinit var providers: Providers
-
-    private lateinit var converters: Map<String, ProviderPayloadConverter>
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         return parameter.hasParameterAnnotation(Provider::class.java)
@@ -30,15 +29,14 @@ class ProviderPayloadConverterResolver : HandlerMethodArgumentResolver {
                                  binderFactory: WebDataBinderFactory?): Any {
         val providerToken = webRequest.getHeader(PROVIDER_HEADER)
         if (providerToken == null || providerToken.isBlank()) {
-            throw java.lang.IllegalArgumentException() // todo specific exception
+            throw BadRequestException("Please specify 'Provider-Token' header")
         }
-        val provider = providers.getProviderSettingsByToken(providerToken)
-                ?: throw java.lang.IllegalArgumentException() // todo specific exception
-
-        val converter = converters.get(provider.payloadConverter)
-                ?: throw java.lang.IllegalArgumentException() // todo specific exception
-
-        return converter
+        val provider = providers.getProviderSettingsByToken(providerToken) ?: throw BadRequestException("Unknown provider")
+        return converters[provider.payloadConverter] ?: throw BadRequestException("Unknown provider")
     }
 
 }
+
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.VALUE_PARAMETER)
+annotation class Provider
