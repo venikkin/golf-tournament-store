@@ -8,25 +8,20 @@ import java.net.URL
 import javax.annotation.PostConstruct
 
 @Service
-class Providers {
-
-    @Value("\${providers.source}")
-    private val providerSource: URL? = null
+class Providers constructor(
+    @Value("\${providers.source}") private val providerSource: URL
+) {
 
     private lateinit var settings: ProvidersSettings
 
     @PostConstruct
     fun loadProvidersData() {
-        if (providerSource == null) {
-            throw IllegalStateException("Please specify 'provider.source' property")
-        }
         settings = providerSource.openStream().use { stream ->
             Gson().fromJson(InputStreamReader(stream), ProvidersSettings::class.java)
         }
         if (settings.providers.isEmpty()) {
-            throw IllegalStateException("Provider list is empty")
+            throw IllegalArgumentException("Provider list is empty")
         }
-        println(settings)
     }
 
     fun getProviderSettingsByToken(token: String): ProviderSettings? =

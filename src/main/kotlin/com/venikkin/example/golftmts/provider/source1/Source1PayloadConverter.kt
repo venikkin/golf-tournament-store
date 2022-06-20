@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter
 class Source1PayloadConverter: ProviderPayloadConverter {
 
     companion object {
-        private const val PROVIDER_NAME = "Source1"
+        const val PROVIDER_NAME = "Source1"
         private val GSON: Gson = Gson()
         private val DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy");
     }

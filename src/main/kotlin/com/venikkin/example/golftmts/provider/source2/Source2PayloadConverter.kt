@@ -16,7 +16,7 @@ class Source2PayloadConverter @Autowired constructor(
 ): ProviderPayloadConverter {
 
     companion object {
-        private const val PROVIDER_NAME = "Source2"
+        const val PROVIDER_NAME = "Source2"
         private val GSON: Gson = Gson()
 
         private fun toUtcLocalDate(s: String) = Date(s.toLong() * 1000).toInstant().atZone(ZoneId.of("UTC")).toLocalDate()
