@@ -133,6 +133,17 @@
                         <argument>--spring.config.location=file:conf/example.application.properties</argument>
                     </arguments>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.venikkin.example.golftmts.Bootstrap</mainClass>
+                            <classifier>app</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -20,7 +20,7 @@ class ProviderPayloadConverterResolver @Autowired constructor(
     }
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.hasParameterAnnotation(Provider::class.java)
+        return parameter.hasParameterAnnotation(PayloadConverter::class.java)
     }
 
     override fun resolveArgument(parameter: MethodParameter,
@@ -39,4 +39,4 @@ class ProviderPayloadConverterResolver @Autowired constructor(
 
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.VALUE_PARAMETER)
-annotation class Provider
+annotation class PayloadConverter
