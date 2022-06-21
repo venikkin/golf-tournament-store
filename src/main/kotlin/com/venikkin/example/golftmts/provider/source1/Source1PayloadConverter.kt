@@ -1,7 +1,7 @@
 package com.venikkin.example.golftmts.provider.source1
 
 import com.google.gson.Gson
-import com.venikkin.example.golftmts.configuration.BadRequestException
+import com.venikkin.example.golftmts.configuration.InvalidPayloadException
 import com.venikkin.example.golftmts.model.Tournament
 import com.venikkin.example.golftmts.provider.ProviderPayloadConverter
 import org.springframework.stereotype.Service
@@ -18,7 +18,7 @@ class Source1PayloadConverter: ProviderPayloadConverter {
     }
 
     override fun convert(payload: String): Tournament {
-        val source1Payload = GSON.fromJson(payload, Source1Payload::class.java) ?: throw BadRequestException("Fail to deserialise payload")
+        val source1Payload = GSON.fromJson(payload, Source1Payload::class.java) ?: throw InvalidPayloadException("Fail to deserialise payload")
         return try {
             Tournament(
                 name = source1Payload.tournamentName,
@@ -33,7 +33,7 @@ class Source1PayloadConverter: ProviderPayloadConverter {
                 provider = PROVIDER_NAME
             )
         } catch (ex: Exception) {
-            throw BadRequestException("Fail to deserialise payload", ex)
+            throw InvalidPayloadException("Fail to deserialise payload", ex)
         }
     }
 

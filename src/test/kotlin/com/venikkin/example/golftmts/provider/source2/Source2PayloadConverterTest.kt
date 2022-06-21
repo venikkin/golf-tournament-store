@@ -1,6 +1,6 @@
 package com.venikkin.example.golftmts.provider.source2
 
-import com.venikkin.example.golftmts.configuration.BadRequestException
+import com.venikkin.example.golftmts.configuration.InvalidPayloadException
 import com.venikkin.example.golftmts.service.CountryCodeConverter
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -53,7 +53,7 @@ class Source2PayloadConverterTest {
 
     @Test
     fun `returns bad request exception when fail to parse payload`() {
-        Assertions.assertThrows(BadRequestException::class.java) {
+        Assertions.assertThrows(InvalidPayloadException::class.java) {
             source2PayloadConverter.convert("""
             {
                 "golfCourse":"Happy Days Golf Club",

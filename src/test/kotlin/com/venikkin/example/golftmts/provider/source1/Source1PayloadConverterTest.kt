@@ -1,6 +1,6 @@
 package com.venikkin.example.golftmts.provider.source1
 
-import com.venikkin.example.golftmts.configuration.BadRequestException
+import com.venikkin.example.golftmts.configuration.InvalidPayloadException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -39,7 +39,7 @@ class Source1PayloadConverterTest {
 
     @Test
     fun `returns bad request exception when fail to parse payload`() {
-        assertThrows(BadRequestException::class.java) {
+        assertThrows(InvalidPayloadException::class.java) {
             source1PayloadConverter.convert("""
                 {
                     "tournamentName": "Women's Open Championship",
