@@ -64,7 +64,7 @@ class Source2PayloadConverterTest {
                 "rounds":"2",
                 "playerCount":"35"
             }
-                """.trimIndent())
+            """.trimIndent())
         }
     }
 

@@ -2,7 +2,7 @@ package com.venikkin.example.golftmts.controller
 
 import com.venikkin.example.golftmts.provider.Provider
 import com.venikkin.example.golftmts.provider.ProviderPayloadConverter
-import com.venikkin.example.golftmts.provider.Providers.ProviderSettings
+import com.venikkin.example.golftmts.provider.Providers.ProviderSetting
 import com.venikkin.example.golftmts.service.TournamentService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus.OK
@@ -21,7 +21,7 @@ class GolfTournamentsController @Autowired constructor(
 
     @PostMapping(consumes = [ "application/json" ])
     @ResponseStatus(OK)
-    fun postGolfTournament(@RequestBody payload: String, @Provider provider: ProviderSettings) {
+    fun postGolfTournament(@RequestBody payload: String, @Provider provider: ProviderSetting) {
         val payloadConverter = converters[provider.payloadConverter] ?: throw IllegalStateException("Fail to find payload converter")
         val tournament = payloadConverter.convert(payload)
         tournamentService.saveTournament(tournament)

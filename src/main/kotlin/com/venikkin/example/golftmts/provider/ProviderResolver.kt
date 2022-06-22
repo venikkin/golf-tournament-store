@@ -9,7 +9,7 @@ import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.bind.support.WebDataBinderFactory
 
 @Service
-class ProviderPayloadConverterResolver @Autowired constructor(
+class ProviderResolver @Autowired constructor(
         private val providers: Providers,
 ) : HandlerMethodArgumentResolver {
 

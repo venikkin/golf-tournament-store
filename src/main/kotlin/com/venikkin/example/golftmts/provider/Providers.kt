@@ -30,7 +30,7 @@ class Providers constructor(
         }
     }
 
-    fun extractProviderFromWebRequest(webRequest: WebRequest): ProviderSettings {
+    fun extractProviderFromWebRequest(webRequest: WebRequest): ProviderSetting {
         val providerToken = webRequest.getHeader(PROVIDER_HEADER)
         if (providerToken == null || providerToken.isBlank()) {
             throw InvalidProviderException("Please specify 'Provider-Token' header")
@@ -38,8 +38,8 @@ class Providers constructor(
         return settings.providers.find { it.token == providerToken } ?: throw InvalidProviderException("Unknown provider")
     }
 
-    data class ProviderSettings(val alias: String, val token: String, val payloadConverter: String)
-    data class ProvidersSettings(val providers: List<ProviderSettings>)
+    data class ProviderSetting(val alias: String, val token: String, val payloadConverter: String)
+    data class ProvidersSettings(val providers: List<ProviderSetting>)
 
 
 }

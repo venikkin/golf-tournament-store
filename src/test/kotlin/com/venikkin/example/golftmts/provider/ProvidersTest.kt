@@ -34,9 +34,9 @@ class ProvidersTest {
         // then
         val providerSettings = providers.extractProviderFromWebRequest(testWebRequest)
         assertNotNull(providerSettings)
-        assertEquals("Source1", providerSettings?.alias)
-        assertEquals(EXAMPLE_TOKEN, providerSettings?.token)
-        assertEquals("source1PayloadConverter", providerSettings?.payloadConverter)
+        assertEquals("Source1", providerSettings.alias)
+        assertEquals(EXAMPLE_TOKEN, providerSettings.token)
+        assertEquals("source1PayloadConverter", providerSettings.payloadConverter)
     }
 
     @Test
