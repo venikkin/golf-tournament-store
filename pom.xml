@@ -74,6 +74,10 @@
                         <plugin>spring</plugin>
                     </compilerPlugins>
                 </configuration>
+                <!--
+                Additional dependencies and plugins are useful to generate open classes with no-arg constructors by default
+                as these are spring/hibernate requirements.
+                -->
                 <dependencies>
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
@@ -148,7 +152,7 @@
         </plugins>
     </build>
 
-    <!-- Dependency management section could be especially useful in multi-module maven modules to track version across all modules -->
+    <!-- Dependency management section could be especially useful in multi-module maven modules to track version across all modules. -->
     <dependencyManagement>
         <dependencies>
             <dependency>

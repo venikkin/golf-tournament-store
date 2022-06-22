@@ -8,6 +8,12 @@ import org.springframework.web.method.support.ModelAndViewContainer
 import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.bind.support.WebDataBinderFactory
 
+/**
+ * This service resolves provider settings and injects them into the annotated argument.
+ * In the scope of this task, it's possible to parse the payload according to provider's format and inject the payload instead.
+ * However, in general, if there will be more provider-specific distinctions, it could be beneficial to keep provider resolution and delete more specific
+ * operation (like payload conversion) to more specific services.
+ */
 @Service
 class ProviderResolver @Autowired constructor(
         private val providers: Providers,

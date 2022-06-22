@@ -9,6 +9,18 @@ import java.io.InputStreamReader
 import java.net.URL
 import javax.annotation.PostConstruct
 
+/**
+ * We cannot define provider by publicly available information. This is an example approach by using provider-specific secrets sent via HTTP headers.
+ *
+ * In the production-ready application, this could be done based on authentication used by specific provider. For example, it could be extracted form IAM role
+ * used to sign a request or by a secret from JWT.
+ *
+ * If token solution is used, token must be stored in secured location (AWS Secretsmanager / AWS SSM parameter store / Database). Automatic token rotation
+ * would be also beneficial.
+ *
+ * This implementation loads provider form from URL provided via configuration. Depending on the requirements,
+ * the source of provider settings could be a database. In this case, the schema could be modified as well (see schema comments).
+ */
 @Service
 class Providers constructor(
     @Value("\${providers.source}") private val providerSource: URL

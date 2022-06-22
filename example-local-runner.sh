@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+# This scripts is an example. It doesn't require and 3party tools (docker-compose, mysql-client) to be installed. It does leave a dirty state
+# in a form of mysql container running after termination. Please stop / remove it separately.
+
 docker build -t golf-tournamnets .
 docker build -t dev-mysql database
 

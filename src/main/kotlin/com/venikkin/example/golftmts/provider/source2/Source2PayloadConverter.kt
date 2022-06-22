@@ -26,8 +26,8 @@ class Source2PayloadConverter @Autowired constructor(
     }
 
     override fun convert(payload: String): Tournament {
-        val source2Payload = GSON.fromJson(payload, Source2Payload::class.java) ?: throw InvalidPayloadException("Fail to deserialise payload")
         return try {
+            val source2Payload = GSON.fromJson(payload, Source2Payload::class.java) ?: throw InvalidPayloadException("Fail to deserialise payload")
             Tournament(
                 name = source2Payload.competitionName,
                 courseName = source2Payload.golfCourse,

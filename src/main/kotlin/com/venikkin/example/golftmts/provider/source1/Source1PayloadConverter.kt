@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+/**
+ * This converter does the basic conversion. However, production application might need to detailed parameter validation as well as more details
+ * feedback to a client in case criteria not met.
+ *
+ * This comment also applies to Source2 converter.
+ */
 @Service
 class Source1PayloadConverter: ProviderPayloadConverter {
 
@@ -18,8 +24,8 @@ class Source1PayloadConverter: ProviderPayloadConverter {
     }
 
     override fun convert(payload: String): Tournament {
-        val source1Payload = GSON.fromJson(payload, Source1Payload::class.java) ?: throw InvalidPayloadException("Fail to deserialise payload")
         return try {
+            val source1Payload = GSON.fromJson(payload, Source1Payload::class.java) ?: throw InvalidPayloadException("Fail to deserialise payload")
             Tournament(
                 name = source1Payload.tournamentName,
                 courseName = source1Payload.courseName,
