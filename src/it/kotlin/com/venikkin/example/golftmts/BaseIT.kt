@@ -42,7 +42,7 @@ abstract class BaseIT {
 
         @JvmStatic
         @DynamicPropertySource
-        fun properties(registry: DynamicPropertyRegistry) {
+        fun dataSourceProperties(registry: DynamicPropertyRegistry) {
             registry.add("spring.datasource.url") { mysql.jdbcUrl }
             registry.add("spring.datasource.password") { mysql.password }
             registry.add("spring.datasource.username") { mysql.username }
@@ -50,7 +50,7 @@ abstract class BaseIT {
 
         @JvmStatic
         @BeforeAll
-        fun setUpJdbcUrl(@Autowired jdbcTemplate: JdbcTemplate) {
+        fun applySchema(@Autowired jdbcTemplate: JdbcTemplate) {
             SchemaHelper.applySchema(jdbcTemplate)
         }
 
