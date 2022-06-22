@@ -7,7 +7,7 @@ docker build -t golf-tournamnets .
 docker build -t dev-mysql database
 
 MYSQL_CONTAINER_NAME=dev-mysql
-if [ "$(docker container ls -a | grep -c $MYSQL_CONTAINER_NAME)" > 0 ];
+if [ "$(docker container ls -a | grep -c $MYSQL_CONTAINER_NAME)" -gt 0 ];
 then
     docker container stop $MYSQL_CONTAINER_NAME
     docker container rm $MYSQL_CONTAINER_NAME
